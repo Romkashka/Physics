@@ -312,7 +312,7 @@ def animate(i):
     # axE3.lcear()
     ax2.plot(times, Ep_array, color='orange')
     ax2.plot(times, Ek_array, color='blue')
-    ax2.plot(times, np.zeros(len(times)), color='black')
+    ax2.plot([0, max_times], [0, 0], color='black')
     ax2.plot(times, np.array(Ek_array) + np.array(Ep_array), color='red')
     # text1.set_text('Time = {:.3f} Years'.format(i * years_per_step))
 
