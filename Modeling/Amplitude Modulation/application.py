@@ -22,8 +22,8 @@ class Application(tk.Frame):
         self.frame1.pack(expand=True, fill=tk.BOTH)
         self.frame2.pack(expand=True, fill=tk.BOTH)
 
-        self.notebook.add(self.frame1, text="Python")
-        self.notebook.add(self.frame2, text="Java")
+        self.notebook.add(self.frame1, text="Sine wave")
+        self.notebook.add(self.frame2, text="Wav file")
 
 
 def main():

@@ -28,9 +28,9 @@ class Page1(Page_base.Page):
         self.toolbar.grid(row=5, column=0, columnspan=2)
 
         self.sampling_freq = 192000
-        self.x, self.signal = common.discretize_sine_wave(0, 10, self.sampling_freq)
+        self.x, self.signal = common.discretize_sine_wave(0, 10, self.sampling_freq * 10)
         self.carrier_freq = 4000.0
-        _, self.carrier = common.discretize_sine_wave(self.carrier_freq, 10, self.sampling_freq)
+        _, self.carrier = common.discretize_sine_wave(self.carrier_freq, 10, self.sampling_freq * 10)
         self.modulated = modulation.modulate(self.carrier_freq, 10, self.sampling_freq, self.signal, 1)
         self.demodulated = modulation.demodulate(self.modulated)
 
@@ -63,14 +63,14 @@ class Page1(Page_base.Page):
         self.reset_button.grid(row=3, column=1)
 
     def Add_sine_wave(self, freq, ampl):
-        _, new_signal = common.discretize_sine_wave(freq, 10, self.sampling_freq)
+        _, new_signal = common.discretize_sine_wave(freq, 10, self.sampling_freq * 10)
         self.signal += new_signal * ampl
         self.Redraw()
         self.signal_plot.set_ylim([-max(np.abs(self.signal)) * 1.1, max(np.abs(self.signal)) * 1.1])
         self.modulated_plot.set_ylim([-max(np.abs(self.modulated)) * 1.1, max(np.abs(self.modulated)) * 1.1])
 
     def Reset(self):
-        self.x, self.signal = common.discretize_sine_wave(0, 10, self.sampling_freq)
+        self.x, self.signal = common.discretize_sine_wave(0, 10, self.sampling_freq * 10)
         self.signal_plot.set_ylim([-1.1, 1.1])
         self.signal_plot.set_xlim([0, 0.01])
         self.carrier_plot.set_ylim([-1.1, 1.1])
@@ -82,7 +82,6 @@ class Page1(Page_base.Page):
         self.Redraw()
 
     def Redraw(self):
-        # self.signal = self.signal / self.signal.max()
         self.modulated = modulation.modulate(self.carrier_freq, 10, self.sampling_freq, self.signal, 1)
         self.demodulated = modulation.demodulate(self.modulated)
         self.signal_line.set_ydata(self.signal)
